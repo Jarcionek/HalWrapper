@@ -16,18 +16,6 @@ public abstract class HalWrapper {
         this.links = ImmutableMap.of("self", href(uriInfo.getRequestUri()));
     }
 
-    public HalWrapper(UriInfo uriInfo, Map<String, URI> extraLinks) {
-        ImmutableMap.Builder<String, Map<String, String>> builder = ImmutableMap.<String, Map<String, String>>builder();
-
-        builder.put("self", href(uriInfo.getRequestUri()));
-        extraLinks.entrySet().forEach(entry ->
-                        builder.put(entry.getKey(), href(entry.getValue()))
-        );
-
-        this.links = builder.build();
-    }
-
-
     private static ImmutableMap<String, String> href(URI uri) {
         return ImmutableMap.of("href", link(uri));
     }
