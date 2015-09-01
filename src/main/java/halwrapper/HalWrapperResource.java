@@ -11,18 +11,18 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
-import static halwrapper.Hal.hal;
+import static halwrapper.SimpleHal.hal;
 import static java.util.Arrays.asList;
 
 @Path("/test")
 @Produces(MediaType.APPLICATION_JSON)
-public class HalWrapperTestResource {
+public class HalWrapperResource {
 
     @Path("/1")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response test1(@Context UriInfo uriInfo) {
-        return Response.ok(new StringHal(uriInfo, asList("one", "2", "trzy"))).build();
+        return Response.ok(new StringListHal(uriInfo, asList("one", "2", "trzy"))).build();
     }
 
     @Path("/2")
@@ -54,6 +54,13 @@ public class HalWrapperTestResource {
                 )
         );
         return Response.ok(hal).build();
+    }
+
+    @Path("/5")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response test5(@Context UriInfo uriInfo) {
+        return Response.ok(new ExampleCompositeHal(uriInfo)).build();
     }
 
 }
